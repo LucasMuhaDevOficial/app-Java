@@ -1,0 +1,132 @@
+class ListaDeTarefasActivity : AppCompatActivity() {
+
+    private lateinit var listaDeTarefasViewModel: ListaDeTarefasViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        listaDeTarefasViewModel = ViewModelProvider(this).get(ListaDeTarefasViewModel::class.java)
+
+        val adapter = TarefaAdapter(listaDeTarefasViewModel)
+
+        listaDeTarefasRecyclerView.adapter = adapter
+        listaDeTarefasRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        adicionarTarefaButton.setOnClickListener {
+            val nome = tarefaEditText.text.toString()
+            listaDeTarefasViewModel.adicionarTarefa(nome)
+            adapter.notifyDataSetChanged()
+            tarefaEditText.setText("")
+        }
+    }
+
+    class TarefaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val nomeTarefaTextView: TextView = itemView.findViewById(R.id.nomeTarefaTextView)
+        private val tarefaConcluidaCheckBox: CheckBox = itemView.findViewById(R.id.tarefaConcluidaCheckBox)
+
+        fun bind(tarefa: Tarefa, listaDeTarefasViewModel: ListaDeTarefasViewModel) {
+
+            class ListaDeTarefasViewModel : ViewModel() {
+                private val listaDeTarefas = ListaDeTarefas()
+            
+                fun adicionarTarefa(nome: String) {
+                    val tarefa = Tarefa(nome)
+                    listaDeTarefas.adicionar(tarefa)
+                }
+            
+                fun removerTarefa(tarefa: Tarefa) {
+                    listaDeTarefas.remover(tarefa)
+                }
+            
+                fun tamanhoLista(): Int {
+                    return listaDeTarefas.tamanho()
+                }
+            
+                fun getTarefa(posicao: Int): Tarefa {
+                    return listaDeTarefas.getTarefa(posicao)
+                }
+            
+                fun marcarComoConcluida(tarefa: Tarefa) {
+                    tarefa.concluida = true
+                }
+            }
+            data class Tarefa(val nome: String, var concluida: Boolean = false)
+
+            class ListaDeTarefas {
+                private val lista = mutableListOf<Tarefa>()
+            
+                fun adicionar(tarefa: Tarefa) {
+                    lista.add(tarefa)
+                }
+            
+                fun remover(tarefa: Tarefa) {
+                    lista.remove(tarefa)
+                }
+            
+                fun tamanho(): Int {
+                    return lista.size
+                }
+            
+                fun getTarefa(posicao: Int): Tarefa {
+                    return lista[posicao]
+                }
+            }
+            data class Tarefa(val nome: String, var concluida: Boolean = false)
+
+            class ListaDeTarefas {
+                private val lista = mutableListOf<Tarefa>()
+            
+                fun adicionar(tarefa: Tarefa) {
+                    lista.add(tarefa)
+                }
+            
+                fun remover(tarefa: Tarefa) {
+                    lista.remove(tarefa)
+                }
+            
+                fun tamanho(): Int {
+                    return lista.size
+                }
+            
+                fun getTarefa(posicao: Int): Tarefa {
+                    return lista[posicao]
+                }
+            }
+            data class Tarefa(val nome: String, var concluida: Boolean = false)
+
+            class ListaDeTarefas {
+                private val lista = mutableListOf<Tarefa>()
+            
+                fun adicionar(tarefa: Tarefa) {
+                    lista.add(tarefa)
+                }
+            
+                fun remover(tarefa: Tarefa) {
+                    lista.remove(tarefa)
+                }
+            
+                fun tamanho(): Int {
+                    return lista.size
+                }
+            
+                fun getTarefa(posicao: Int): Tarefa {
+                    return lista[posicao]
+                }
+            }
+            import java.util.*
+
+            fun main() {
+                val scanner = Scanner(System.`in`)
+                
+                println("Insira a taxa de câmbio de hoje (exemplo: 5.64): ")
+                val taxaDeCambio = scanner.nextFloat()
+                
+                println("Insira o valor em Reais (BRL) que deseja converter: ")
+                val valorEmReais = scanner.nextFloat()
+                
+                val valorEmDolar = valorEmReais / taxaDeCambio
+                
+                println("O valor em Dólar é: $valorEmDolar")
+            }
+               
