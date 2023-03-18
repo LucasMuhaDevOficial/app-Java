@@ -1,1 +1,21 @@
-# app-Java
+public class ListaDeTarefasActivity extends AppCompatActivity {
+
+    private ListaDeTarefasViewModel listaDeTarefasViewModel;
+    private RecyclerView listaDeTarefasRecyclerView;
+    private EditText tarefaEditText;
+    private Button adicionarTarefaButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        listaDeTarefasViewModel = new ListaDeTarefasViewModel();
+
+        listaDeTarefasRecyclerView = findViewById(R.id.listaDeTarefasRecyclerView);
+        listaDeTarefasRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        TarefaAdapter adapter = new TarefaAdapter(listaDeTarefasViewModel);
+        listaDeTarefasRecyclerView.setAdapter(adapter);
+
+        tarefaEditText = findViewById(R.id.tarefaEditText
